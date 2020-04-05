@@ -15,7 +15,7 @@ var svg = d3.select("#chart-container")
     .attr("width", width + 40)
     .attr("height", height + 110);
 
-d3.csv("data/S017757.csv", function(err, data) {
+d3.csv("data/hive plant species data/S011899.csv", function(err, data) {
 
     console.log(err)
     console.log(data)

@@ -2,15 +2,21 @@
 // variables and prevent 
 ((() => {
 
-  var width = 960;
-  var height = 500;
-  
+  var width = 1250;
+  var height = 700;
+
   var svg = d3
 	.select("#map-container")
 	.append("svg")
 	.attr("width", width)
 	.attr("height", height);
-  
+
+  var svg2 = d3
+  	.select("#chart-container")
+    .append("svg")
+    .attr("width", width + 40)
+    .attr("height", height + 110);
+
   var projection = d3
 	.geoAlbersUsa()
 	.translate([width / 2, height / 2])
@@ -24,6 +30,43 @@
 		drawMap(us, cities);
 	});
   });
+
+  function drawChart(data) {
+
+  //   console.log(data)
+
+  // 	x.domain(data.map(function(d) { return d["Common Name"]; }));
+  // 	y.domain([0, d3.max(data, function(d) { return d.Percentage; })]);
+
+  // svg.append("g")
+  //     .attr("class", "x axis")
+  //     .attr("transform", "translate(0," + height + ")")
+  //     .call(xAxis)
+  //   .selectAll("text")
+  //     .style("text-anchor", "end")
+  //     .attr("dx", "-.8em")
+  //     .attr("dy", "-.55em")
+  //     .attr("transform", "rotate(-90)" );
+
+  // svg.append("g")
+  //     .attr("class", "y axis")
+  //     .call(yAxis)
+  //   .append("text")
+  //     .attr("transform", "rotate(-90)")
+  //     .attr("y", 6)
+  //     .attr("dy", ".71em")
+  //     .style("text-anchor", "end")
+  //     .text("Value ($)");
+
+  // svg.selectAll("bar")
+  //     .data(data)
+  //   .enter().append("rect")
+  //     .style("fill", "steelblue")
+  //     .attr("x", function(d) { return x(d["Common Name"]); })
+  //     .attr("width", x.bandwidth())
+  //     .attr("y", function(d) { return y(d.Percentage); })
+  //     .attr("height", function(d) { return height - y(d.Percentage); });
+  }
 
   function drawMap(us, cities) {
 	var mapGroup = svg.append("g").attr("class", "mapGroup");
@@ -62,8 +105,32 @@
 	    .attr("cy", function(d) {
 	      return projection([d.Longitude, d.Latitude])[1];
 	    })
-	    .attr("r", 5);
-}
+	    .attr("r", 4)
+	    .on('mouseover', function(d, i) {
+	      console.log("mouseover on", this);
+	      // make the mouseover'd element
+	      // bigger and red
+	      d3.select(this)
+	        .transition()
+	        .duration(100)
+	        .attr('r', 20)
+	        .attr('fill', '#ff0000');
+	    })
+	    .on('mouseout', function(d, i) {
+	      console.log("mouseout", this);
+	      // return the mouseover'd element
+	      // to being smaller and black
+	      d3.select(this)
+	        .transition()
+	        .duration(100)
+	        .attr('r', 4)
+	        .attr('fill', '#000000');
+	    });
+
+    // svg.append("g").call(brush);
+  }
+
+
 
 
 })());
