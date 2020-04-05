@@ -24,6 +24,11 @@ circle.selected {
   fill: red;
 }
 
+svg {
+	display: block;
+	margin: auto;
+}
+
 
 /* General formatting */
 body {

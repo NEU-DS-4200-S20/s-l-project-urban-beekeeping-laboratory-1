@@ -1,5 +1,5 @@
 // This is the javascript for the barcharts
-var width = 600,
+var width = 800,
     height = 300;
 
 var x = d3.scaleBand().rangeRound([0, width], .05);
@@ -10,9 +10,11 @@ var xAxis = d3.axisBottom(x);
 
 var yAxis = d3.axisLeft(y).ticks(10);
 
+var barpadding = 8;
+
 var svg = d3.select("#chart-container")
     .append("svg")
-    .attr("width", width + 40)
+    .attr("width", width + 70)
     .attr("height", height + 110);
 
 function render(csv){
@@ -37,6 +39,7 @@ function render(csv){
 
     svg.append("g")
         .attr("class", "y axis")
+        .attr("transform", "translate(" + (width+20) + ",0)")
         .call(yAxis)
         .append("text")
         .attr("transform", "rotate(-90)")
@@ -44,13 +47,13 @@ function render(csv){
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         .text("Value ($)");
-    
+
       svg.selectAll("bar")
           .data(data)
         .enter().append("rect")
           .style("fill", "steelblue")
           .attr("x", function(d) { return x(d[data.columns[1]]); })
-          .attr("width", x.bandwidth())
+          .attr("width", width / data.length - barpadding)
           .attr("y", function(d) { 
               console.log(d[data.columns[0]]);
               console.log(d);
