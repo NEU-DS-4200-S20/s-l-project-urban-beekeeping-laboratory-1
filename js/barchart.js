@@ -15,40 +15,54 @@ var svg = d3.select("#chart-container")
     .attr("width", width + 40)
     .attr("height", height + 110);
 
-d3.csv("data/hive plant species data/S011899.csv", function(err, data) {
+function render(csv){
+    var csvPath = "data/hive\ plant\ species\ data/"+csv+".csv"
+    d3.csv(csvPath, function(err, data) {
 
-    console.log(err)
-    console.log(data)
+        console.log(err)
+        console.log(data)
+    
+      x.domain(data.map(function(d) { return d[data.columns[1]]; }));
+      y.domain([0, d3.max(data, function(d) { return d[data.columns[0]]; })]);
 
-  x.domain(data.map(function(d) { return d["Common Name"]; }));
-  y.domain([0, d3.max(data, function(d) { return d.Percentage; })]);
+      svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+        .selectAll("text")
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", "-.55em")
+        .attr("transform", "rotate(-90)" );
 
-  svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis)
-    .selectAll("text")
-      .style("text-anchor", "end")
-      .attr("dx", "-.8em")
-      .attr("dy", "-.55em")
-      .attr("transform", "rotate(-90)" );
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .text("Value ($)");
+    
+      svg.selectAll("bar")
+          .data(data)
+        .enter().append("rect")
+          .style("fill", "steelblue")
+          .attr("x", function(d) { return x(d[data.columns[1]]); })
+          .attr("width", x.bandwidth())
+          .attr("y", function(d) { 
+              console.log(d[data.columns[0]]);
+              console.log(d);
+              return y(d[data.columns[0]]); 
+            })
+          .attr("height", function(d) { return height - y(d[data.columns[0]]); });
+    });
+}
 
-  svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
-    .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("Value ($)");
+function update(csv){
+    svg.selectAll("*").remove();
+    render(csv);
+}
 
-  svg.selectAll("bar")
-      .data(data)
-    .enter().append("rect")
-      .style("fill", "steelblue")
-      .attr("x", function(d) { return x(d["Common Name"]); })
-      .attr("width", x.bandwidth())
-      .attr("y", function(d) { return y(d.Percentage); })
-      .attr("height", function(d) { return height - y(d.Percentage); });
-});
+update("S017413");

@@ -11,12 +11,6 @@
 	.attr("width", width)
 	.attr("height", height);
 
-  var svg2 = d3
-  	.select("#chart-container")
-    .append("svg")
-    .attr("width", width + 40)
-    .attr("height", height + 110);
-
   var projection = d3
 	.geoAlbersUsa()
 	.translate([width / 2, height / 2])
@@ -109,7 +103,8 @@
 	    .on('mouseover', function(d, i) {
 	      console.log("mouseover on", this);
 	      // make the mouseover'd element
-	      // bigger and red
+		  // bigger and red
+		  update(d["Hive ID"])
 	      d3.select(this)
 	        .transition()
 	        .duration(100)
