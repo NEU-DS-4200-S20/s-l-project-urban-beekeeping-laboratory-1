@@ -2,8 +2,6 @@
 // variables and prevent 
 ((() => {
 
-  console.log("Hello, world!");
-
   var width = 960;
   var height = 500;
   
@@ -22,12 +20,14 @@
   
   d3.json("data/us.json", function(us) {
 	//Error
-	drawMap(us);
+	d3.csv("data/ids_cities_with_coords.csv", function(cities) {
+		drawMap(us, cities);
+	});
   });
-  
-  function drawMap(us) {
+
+  function drawMap(us, cities) {
 	var mapGroup = svg.append("g").attr("class", "mapGroup");
-  
+
 	mapGroup
 	  .append("g")
 	  // .attr("id", "states")
@@ -37,7 +37,7 @@
 	  .append("path")
 	  .attr("d", path)
 	  .attr("class", "states");
-  
+
 	mapGroup
 	  .append("path")
 	  .datum(
@@ -47,6 +47,23 @@
 	  )
 	  .attr("id", "state-borders")
 	  .attr("d", path);
-  }
+
+
+  	var circles = svg
+	    .selectAll("circle")
+	    .data(cities)
+	    .enter()
+	    .append("circle")
+	    .attr("class", "cities")
+	    .attr("cx", function(d) {
+	    	console.log(d)
+	      return projection([d.Longitude, d.Latitude])[0];
+	    })
+	    .attr("cy", function(d) {
+	      return projection([d.Longitude, d.Latitude])[1];
+	    })
+	    .attr("r", 5);
+}
+
 
 })());
