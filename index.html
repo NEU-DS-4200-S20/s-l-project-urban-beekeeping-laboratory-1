@@ -46,7 +46,6 @@
 
     
     <h1>Visualization</h1>
-   		<p>Enter visualization here</p>
     
   </div>
   
@@ -55,19 +54,19 @@
     <!-- Change viewbox to whatever you want, e.g. "0 0 1000 6000" This determines your aspect ratio and coordinate system -->    
     <!-- Delete all the sample SVG code below after the viewbox to before the closing tag. Populate this part of the SVG with D3. -->
     <div id='map-container'></div>
-    <svg id="vis-svg"
+    <!-- Removing the viewbox brings our chart next to our map-->
+    <!--<svg id="vis-svg"
       preserveAspectRatio="xMidYMid meet" class="marks" viewBox="0 0 821 520">
     	<g id="boundary"></g>
-      	<g id="states"></g>
+      	<g id="states"></g>-->
     <!-- Don't delete the closing tag! -->
-    </svg>
-  </div>
+    <!--</svg>-->
 
   <!-- Splitting the visualizations to be stacked so the map can be bigger -->
-  <div id='chart-container'></div>
-  <div class='barchart-holder' id='barchart'>
-  	<svg id='vis-svg' preserveAspectRatio='xMidYMid meet' class='marks' viewBox='0 0 821 520'>
-  	</svg>
+    <div id='chart-container'></div>
+    <div class='barchart-holder' id='barchart'>
+  	 <!--<svg id='vis-svg' preserveAspectRatio='xMidYMid meet' class='marks' viewBox='0 0 821 520'></svg>-->
+    </div>
   </div>
 
   
@@ -87,9 +86,12 @@
     <h1>Visualization explanation</h1>
     
     <p><em>Final visualization screenshots (PNG images), design justifications, UI walk-through, and linked presentation slides.</em></p>
+    <p>One of the main goals of our project was to identify "blue zones" or areas where hives were doing well. This was to try to narrow down areas that might have healthy bee hives and compare them to areas that had unhealthy hives. Therefore we wanted to use a map as one of our visualizations. Our other task was to look at the presence of different plants in the honey of different hives. We decided the best way to visualize this was with a bar chart for each hive.</p>
+    <p>To use this visualization the first interaction invovles clicking on one of the circles on the map, representing a hive or a group of hives. This will update the bar chart with the HoneyDNA of the hive selected.</p>
 
     <h1>Data Analysis</h1>
     <p><em>Summary of data, data types, and data preprocessing.</em></p>
+    <p>We used a couple different data sets to compile this visualization. We were given an excel file containing the HoneyDNA breakdown and location for every hive Best Bees had data on. Each sheet represented a different hive. We split this data into individual csv sheets to be more easily accessed and referenced. The location of each hive was given by city and state so we used a Python script to find the latitude and longitude coordinates of each location. We were also given a couple different excel files containing the condition of the hives for the last four years. Using these files we created a single file containing the condition of the hive for the year the HoneyDNA sample was collected. We also used a JSON file provided during an online lecture containing the data necessary to create a map of the United States. 
 
     <p><em>Expectation: Data sources match the problem statement and are appropriate. These descriptions should be very explicit so someone could read your page and properly reproduce your results.</em></p>
 
