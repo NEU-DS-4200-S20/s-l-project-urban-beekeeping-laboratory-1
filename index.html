@@ -4,13 +4,13 @@
 <!-- Metadata -->
 <head>
   <meta charset="utf-8">
-  
+
   <!-- Title -->
   <title>Project Team #: Topic, DS 4200 S20</title>
-  
+
   <!-- CSS Styling -->
   <link rel="stylesheet" href="style.css">
- 
+
   <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
@@ -27,31 +27,31 @@
 
   <!-- Update this with your GitHub repo URL -->
   <span id="forkongithub"><a href="https://github.com/Northeastern-DS-4200-S20-Staff/S-L-Project-Template">Fork me on GitHub</a></span>
-  
+
   <!-- Your writeup goes here -->
   <div class = "content-column">
-  
+
     <h1>Project Team #1: Urban Beekeeping Laboratory, DS 4200 S20</h1>
-    
+
     <p><strong>Tom Cairns</strong>, <strong>Sid Radhakrishnan</strong>, <strong>Ryan Liang</strong>, <strong>Lilly Olson</strong></p>
-    
+
     <p>Service-Learning Course Project as part of <a href="https://canvas.instructure.com/courses/1781714">DS 4200: Information Presentation and Visualization</a>, taught by <a href="https://www.eecs.tufts.edu/~dcashm01/">Prof. Dylan Cashman</a>, <a href="https://visualization.khoury.northeastern.edu/">Data Visualization @ Khoury</a>, <a href="https://www.khoury.northeastern.edu/">Northeastern University</a>.</p>
-    
-    
+
+
     <h1>Motivation</h1>
-    
+
     <p><em>Our group worked with the Best Bees Company in Roxbury. Their mission as a company is to improve bee health. To do this they set up and care for hives around the country. They invented a technique to analyze the plants that make up the honey produced by the hive called HoneyDNA. They are interested in seeing if there are certain species of plants are correlated with hive health. To do this they wanted a visualization that made it easy to compare the health of the hives with the plants found in the honey.</em></p>
-    
+
     <!-- <p><em>Expectation: There is a clear focus, and a developed explanation of the problem, and a reasonable response is proposed.</em></p> -->
 
-    
+
     <h1>Visualization</h1>
-    
+
   </div>
-  
+
   <!-- Your visualization here -->
   <div class="vis-holder">
-    <!-- Change viewbox to whatever you want, e.g. "0 0 1000 6000" This determines your aspect ratio and coordinate system -->    
+    <!-- Change viewbox to whatever you want, e.g. "0 0 1000 6000" This determines your aspect ratio and coordinate system -->
     <!-- Delete all the sample SVG code below after the viewbox to before the closing tag. Populate this part of the SVG with D3. -->
     <div id='map-container'></div>
     <!-- Removing the viewbox brings our chart next to our map-->
@@ -69,14 +69,14 @@
     </div>
   </div>
 
-  
+
   <!-- Your writeup goes here -->
   <div class = "content-column">
 
     <h1>Demo Video</h1>
-    
+
     <p><em>Embedded MP4 demo video using the HTML5 &lt;video&gt; tag. For example, this screen recording Prof. Cody Dunne made of Mike Bostock's flexible transitions in D3 slide:</em></p>
-    
+
     <video controls width="100%">
       <source src="http://www.ccs.neu.edu/home/cody/courses/shared/d3-flexible-transitions.mp4" type="video/mp4">
       <p>Your browser doesn't support HTML5 video. Here is
@@ -84,14 +84,14 @@
     </video>
 
     <h1>Visualization explanation</h1>
-    
+
     <p><em>Final visualization screenshots (PNG images), design justifications, UI walk-through, and linked presentation slides.</em></p>
     <p>One of the main goals of our project was to identify "blue zones" or areas where hives were doing well. This was to try to narrow down areas that might have healthy bee hives and compare them to areas that had unhealthy hives. Therefore we wanted to use a map as one of our visualizations. Our other task was to look at the presence of different plants in the honey of different hives. We decided the best way to visualize this was with a bar chart for each hive.</p>
-    <p>To use this visualization the first interaction invovles clicking on one of the circles on the map, representing a hive or a group of hives. This will update the bar chart with the HoneyDNA of the hive selected.</p>
+    <p>To use this visualization the first interaction involves clicking on one of the circles on the map, representing a hive or a group of hives. This will update the bar chart with the HoneyDNA of the hive selected.</p>
 
     <h1>Data Analysis</h1>
     <p><em>Summary of data, data types, and data preprocessing.</em></p>
-    <p>We used a couple different data sets to compile this visualization. We were given an excel file containing the HoneyDNA breakdown and location for every hive Best Bees had data on. Each sheet represented a different hive. We split this data into individual csv sheets to be more easily accessed and referenced. The location of each hive was given by city and state so we used a Python script to find the latitude and longitude coordinates of each location. We were also given a couple different excel files containing the condition of the hives for the last four years. Using these files we created a single file containing the condition of the hive for the year the HoneyDNA sample was collected. We also used a JSON file provided during an online lecture containing the data necessary to create a map of the United States. 
+    <p>We used a couple different data sets to compile this visualization. We were given an excel file containing the HoneyDNA breakdown and location for every hive Best Bees had data on. Each sheet represented a different hive. We split this data into individual csv sheets to be more easily accessed and referenced. The location of each hive was given by city and state so we used a Python script to find the latitude and longitude coordinates of each location. We were also given a couple different excel files containing the condition of the hives for the last four years. Using these files we created a single file containing the condition of the hive for the year the HoneyDNA sample was collected. We also used a JSON file provided during an online lecture containing the data necessary to create a map of the United States.
 
     <p><em>Expectation: Data sources match the problem statement and are appropriate. These descriptions should be very explicit so someone could read your page and properly reproduce your results.</em></p>
 
@@ -102,7 +102,7 @@
     <p><em>Expectation: Clearly describes domain tasks, processes, goals and abstract tasks for domain problems.</em></p>
 
     <h1>Design Process</h1>
-    
+
     <p><em>Sketches and design choices to justify final visualization.</em></p>
 
     <p><em>Expectation: Evidence of iterative improvement.
@@ -113,21 +113,22 @@
     <h1>Conclusion</h1>
 
     <p><em>Short summary of work completed and areas for improvement/future-work.</em></p>
-    
+
     <p><em>Expectation: Meaningfully wraps up project and has good future directions.</em></p>
 
-    
+
     <h1>Acknowledgments</h1>
 
-    <p><em>List here where any code, packages/libraries, text, images, designs, etc. that you leverage come from.</em></p>
-    
+    <p><em>Some code for our visualization including rendering the map and adding points was taken from the in class
+      programming assignment d3 tutorial.</em></p>
+
     <ul>
       <li><a href="https://d3js.org/">D3: Data-Driven Documents</a> by Mike Bostock.</li>
       <li><a href="https://codepo8.github.io/css-fork-on-github-ribbon/#">Pure CSS responsive "Fork me on GitHub" ribbon</a> by Chris Heilmann.</li>
     </ul>
-    
+
   </div>
-  
+
   <!-- Scripts at the end avoid need for dealing with async, defer, or onload event handlers -->
   <script src="lib/d3.v4/d3.v4.js"></script>
   <script src="js/visualization.js"></script>
