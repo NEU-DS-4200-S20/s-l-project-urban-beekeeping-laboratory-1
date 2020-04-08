@@ -19,7 +19,9 @@ var svg = d3.select("#chart-container")
     .attr("height", height + 2 * margin)
     .append("g")
     .attr("transform", `translate(${margin},${margin})`)
-    
+
+
+// Draw the graph    
 function render(csv){
     var csvPath = "data/hive\ plant\ species\ data/"+csv+".csv"
     d3.csv(csvPath, function(err, data) {
@@ -28,17 +30,38 @@ function render(csv){
         console.log(data)
     
       x.domain(data.map(function(d) { return d[data.columns[1]]; }));
-      y.domain([0, d3.max(data, function(d) { return d[data.columns[0]]; })]);
+      y.domain([0, d3.max(data, function(d) { 
+      	console.log(d[data.columns[0]] * 100);
+      	return d[data.columns[0]] * 100; })]);
 
+      // Draw the axes
       svg.append("g")
         .attr("class", "x axis")
         .attr("transform", `translate(0,${height})`)
         .call(xAxis);
 
-    svg.append("g")
+      // Rotate the plant names
+      svg.selectAll(".x axis text")
+      	.attr("transform", function (d) {
+      		return "translate(" + this.getBBox().height*-2 + "," + this.getBBox().height + ")rotate(-45)";
+      	})
+
+      svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
 
+      // Add the labels for the axes taken from Pheobe Bright's Block http://bl.ocks.org/phoebebright/3061203
+      svg.append("text")
+            .attr("text-anchor", "middle")  
+            .attr("transform", "translate("+ -30 +","+(height/2)+")rotate(-90)")
+            .text("Percentage of Honey");
+
+       svg.append("text")
+       		.attr("text-anchor", "middle")
+       		.attr("transform", "translate(" + (width/2) + "," + (height + 50) + ")")
+       		.text("Plant names");
+
+      // Draw the bars
       svg.selectAll("bar")
           .data(data)
         .enter().append("rect")
@@ -48,9 +71,9 @@ function render(csv){
           .attr("y", function(d) { 
               console.log(d[data.columns[0]]);
               console.log(d);
-              return y(d[data.columns[0]]); 
+              return y(d[data.columns[0]] * 100); 
             })
-          .attr("height", function(d) { return height - y(d[data.columns[0]]); });
+          .attr("height", function(d) { return height - y(d[data.columns[0]] * 100); });
     });
 }
 
