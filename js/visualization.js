@@ -101,6 +101,18 @@
 	      return projection([d.Longitude, d.Latitude])[1];
 	    })
 	    .attr("r", 4)
+	    .style('fill', function(d) {
+	    	console.log(d.Health);
+	        	if (d.Health == "Good" || d.Health == "Excellent") { 
+	        		return "green"; 
+	        	}
+        		else if (d.Health == "Troubled") { 
+        			return "red"; 
+        		} 
+        		else {
+        			return "orange";
+        		}
+    	})
 	    	// Guys I have no idea how to write this function in javascript. Want to change the color of each hive 
 	    	// depending on it's condition in the cleaned_health_data csv. 
 	    	
@@ -114,7 +126,7 @@
 	        .transition()
 	        .duration(100)
 	        .attr('r', 20)
-	        .attr('fill', '#ff0000');
+	        .attr('fill', 'orange');
 	    })
 	    .on('mouseout', function(d, i) {
 	      console.log("mouseout", this);
