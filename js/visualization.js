@@ -92,6 +92,7 @@
 	    .enter()
 	    .append("circle")
 	    .attr("class", "cities")
+	    // Also need to add something so it doesn't add multiple data points for the same latitude and longitude
 	    .attr("cx", function(d) {
 	    	console.log(d)
 	      return projection([d.Longitude, d.Latitude])[0];
@@ -100,6 +101,10 @@
 	      return projection([d.Longitude, d.Latitude])[1];
 	    })
 	    .attr("r", 4)
+	    	// Guys I have no idea how to write this function in javascript. Want to change the color of each hive 
+	    	// depending on it's condition in the cleaned_health_data csv. 
+	    	
+	    		// I'm thinking just change the id so then the actual colors can be adjusted in css
 	    .on('mouseover', function(d, i) {
 	      console.log("mouseover on", this);
 	      // make the mouseover'd element
