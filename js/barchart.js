@@ -41,9 +41,11 @@ function render(csv){
         .call(xAxis);
 
       // Rotate the plant names
-      svg.selectAll(".x axis text")
+      // I think I'm having an issue selecting the x axis text. Since there doesn't seem to be any text being appended to the axis
+      svg.selectAll("x axis")
       	.attr("transform", function (d) {
-      		return "translate(" + this.getBBox().height*-2 + "," + this.getBBox().height + ")rotate(-45)";
+      		console.log('can you hear me')
+      		return "translate(" + (this.getBBox().width) + "," + this.getBBox().height + ")rotate(-45)";
       	})
 
       svg.append("g")
@@ -53,18 +55,18 @@ function render(csv){
       // Add the labels for the axes taken from Pheobe Bright's Block http://bl.ocks.org/phoebebright/3061203
       svg.append("text")
             .attr("text-anchor", "middle")  
-            .attr("transform", "translate("+ -30 +","+(height/2)+")rotate(-90)")
+            .attr("transform", "translate(" + -30 + "," + (height / 2) + ")rotate(-90)")
             .text("Percentage of Honey");
 
-       svg.append("text")
+      svg.append("text")
        		.attr("text-anchor", "middle")
-       		.attr("transform", "translate(" + (width/2) + "," + (height + 50) + ")")
+       		.attr("transform", "translate(" + (width / 2) + "," + (height + 50) + ")")
        		.text("Plant names");
 
       // Draw the bars
       svg.selectAll("bar")
           .data(data)
-        .enter().append("rect")
+          .enter().append("rect")
           .style("fill", "steelblue")
           .attr("x", function(d) { return x(d[data.columns[1]]); })
           .attr("width", width / data.length - barpadding)
