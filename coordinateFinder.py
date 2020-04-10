@@ -1,15 +1,20 @@
+import ssl
+import certifi
+import geopy.geocoders
 from  geopy.geocoders import Nominatim
 import pandas as pd
 import csv
 
+ctx = ssl.create_default_context(cafile=certifi.where())
+geopy.geocoders.options.default_ssl_context = ctx
 
 def coordFinder(cityName, stateName):
-    geolocator = Nominatim()
+    geolocator = Nominatim(user_agent="coordinateFinder")
     city = cityName
     state = stateName
 
     try:
-        loc = geolocator.geocode(city+','+ state)
+        loc = geolocator.geocode(city+', '+ state)
         return (loc.latitude, loc.longitude)
     except:
         print("Not a valid city:", city)
@@ -54,9 +59,31 @@ def allCoords(df):
 
     print(len(latitudeList))
     print(len(longitudeList))
+
+
+def addHealth(df, healthDF):
+
+    sizeOfDF = df["City"].count() # 121
+    sizeOfHealthDF = healthDF["Tube ID#"].count() # 39
+    health = ["N/A"] * sizeOfDF
+
+    for i in range(sizeOfDF):
+                
+        currID = df["Hive ID"][i]
+            
+        for j in range(sizeOfHealthDF):
+            if (currID == healthDF["Tube ID#"][j]):
+                del health[i]
+                health.insert(i, healthDF["Condition"][j])
+
+    df["Health"] = health
+    
         
 df = pd.read_csv('data/ids_cities_states.csv')
-# print(df["City"])
-allCoords(df)
-# print(df)
-df.to_csv('data/ids_cities_with_coords.csv', index=False)
+dfHealth = pd.read_csv('data/cleaned_health_data.csv')
+
+# allCoords(df) # function finds lat and lon of cities
+cleanedDf = pd.read_csv('data/ids_cities_with_coords.csv')
+# allCoords(cleanedDf)
+addHealth(cleanedDf, dfHealth)
+cleanedDf.to_csv('data/ids_cities_with_coords.csv', index=False)
