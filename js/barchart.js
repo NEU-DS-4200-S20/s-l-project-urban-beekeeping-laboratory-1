@@ -38,7 +38,14 @@ function render(csv){
       svg.append("g")
         .attr("class", "x axis")
         .attr("transform", `translate(0,${height})`)
-        .call(xAxis);
+        .call(xAxis)        
+        .selectAll("text")  
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", function(d) {
+                return "rotate(-35)" 
+            });;
 
       // Rotate the plant names
       // I think I'm having an issue selecting the x axis text. Since there doesn't seem to be any text being appended to the axis
