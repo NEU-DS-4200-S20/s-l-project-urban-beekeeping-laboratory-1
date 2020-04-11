@@ -46,7 +46,7 @@ def closeProximity(df):
             jLat = df["Latitude"][j]
             jLon = df["Longitude"][j]
 
-            if (i != j):
+            if (df["City"][i] != df["City"][j]):
                 if (haversineFormula(iLat, iLon, jLat, jLon) <= tooClose):
                     df.drop([j], inplace=True)
                     df = df.reset_index(drop=True)
