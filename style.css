@@ -16,9 +16,9 @@
   pointer-events: none;
 }
 
-.cities {
+/*.cities {
   fill: orange;
-}
+}*/
 
 circle.selected {
   fill: red;

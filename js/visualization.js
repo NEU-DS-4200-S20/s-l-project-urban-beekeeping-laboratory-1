@@ -20,7 +20,7 @@
   
   d3.json("data/us.json", function(us) {
 	//Error
-	d3.csv("data/ids_cities_with_coords.csv", function(cities) {
+	d3.csv("data/cities_to_plot.csv", function(cities) {
 		drawMap(us, cities);
 	});
   });
@@ -113,10 +113,7 @@
         			return "orange";
         		}
     	})
-	    	// Guys I have no idea how to write this function in javascript. Want to change the color of each hive 
-	    	// depending on it's condition in the cleaned_health_data csv. 
-	    	
-	    		// I'm thinking just change the id so then the actual colors can be adjusted in css
+
 	    .on('mouseover', function(d, i) {
 	      console.log("mouseover on", this);
 	      // make the mouseover'd element
