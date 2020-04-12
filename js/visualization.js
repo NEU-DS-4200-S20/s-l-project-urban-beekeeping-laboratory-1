@@ -22,7 +22,7 @@
   var legend = svg
   	.append("g")
   	.attr("class", "map-legend")
-  	.attr("transform", "translate(850,450)");
+  	.attr("transform", "translate(850,275)");
 
   // Handmade legend
   legend.append("circle").attr("cx",200).attr("cy",0).attr("r", 6).style("fill", "green")
@@ -32,6 +32,18 @@
   legend.append("text").attr("x", 220).attr("y", 30).text("Unhealthy Hive").style("font-size", "15px").attr("alignment-baseline","middle")
   legend.append("text").attr("x", 220).attr("y", 60).text("No Data").style("font-size", "15px").attr("alignment-baseline","middle")
 
+  // Add the vertical scroll menu
+  // var scrollMenu = svg
+  // 	.append("g")
+  // 	.attr("class", "vertical-menu")
+  // 	.attr("transform", "translate(1050,500)");
+  var scrollMenu = d3
+  	.select("#vertical-menu");
+
+  scrollMenu.append("a")
+  	.append("text")
+  	.attr("y", 30)
+  	.text("Option 1");
 
   d3.json("data/us.json", function(us) {
 	//Error
