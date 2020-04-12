@@ -2,21 +2,34 @@
 // variables and prevent 
 ((() => {
 
-  var width = 1250;
-  var height = 700;
+  var width = 1000;
+  var height = 600;
 
   var svg = d3
 	.select("#map-container")
 	.append("svg")
 	.attr("width", width)
-	.attr("height", height);
+	.attr("height", height)
+    .call(d3.zoom()
+    	.on("zoom", function () {
+              svg.attr("transform", d3.event.transform)
+      }))
+    .append("g");
 
   var projection = d3
-	.geoAlbersUsa()
-	.translate([width / 2, height / 2])
-	.scale(width);
+	.geoMercator();
+	// .translate([width / 2, height / 2])
+	// .scale(width);
+  
+  var zoom = d3.zoom()
+      .scaleExtent([1, 8])
+      .on('zoom', zoomed);
   
   var path = d3.geoPath().projection(projection);
+
+  svg
+    .call(zoom)
+    // .call(zoom.event);
   
   d3.json("data/us.json", function(us) {
 	//Error
@@ -24,44 +37,7 @@
 		drawMap(us, cities);
 	});
   });
-
-  function drawChart(data) {
-
-  //   console.log(data)
-
-  // 	x.domain(data.map(function(d) { return d["Common Name"]; }));
-  // 	y.domain([0, d3.max(data, function(d) { return d.Percentage; })]);
-
-  // svg.append("g")
-  //     .attr("class", "x axis")
-  //     .attr("transform", "translate(0," + height + ")")
-  //     .call(xAxis)
-  //   .selectAll("text")
-  //     .style("text-anchor", "end")
-  //     .attr("dx", "-.8em")
-  //     .attr("dy", "-.55em")
-  //     .attr("transform", "rotate(-90)" );
-
-  // svg.append("g")
-  //     .attr("class", "y axis")
-  //     .call(yAxis)
-  //   .append("text")
-  //     .attr("transform", "rotate(-90)")
-  //     .attr("y", 6)
-  //     .attr("dy", ".71em")
-  //     .style("text-anchor", "end")
-  //     .text("Value ($)");
-
-  // svg.selectAll("bar")
-  //     .data(data)
-  //   .enter().append("rect")
-  //     .style("fill", "steelblue")
-  //     .attr("x", function(d) { return x(d["Common Name"]); })
-  //     .attr("width", x.bandwidth())
-  //     .attr("y", function(d) { return y(d.Percentage); })
-  //     .attr("height", function(d) { return height - y(d.Percentage); });
-  }
-
+  
   function drawMap(us, cities) {
 	var mapGroup = svg.append("g").attr("class", "mapGroup");
 
@@ -134,11 +110,14 @@
 	        .duration(100)
 	        .attr('r', 4)
 	        .attr('fill', '#000000');
-	    });
+	    })
+  	}	
 
-    // svg.append("g").call(brush);
-  }
+	function zoomed() {
+	  g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+	}
 
+	d3.select(self.frameElement).style("height", height + "px");
 
 
 

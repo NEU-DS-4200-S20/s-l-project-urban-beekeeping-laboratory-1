@@ -1,3 +1,4 @@
+
 .vis-container {
   display: flex;
   flex-wrap: wrap;
@@ -27,6 +28,8 @@ circle.selected {
 svg {
 	display: block;
 	margin: auto;
+  	background: #eee;
+
 }
 
 img{
