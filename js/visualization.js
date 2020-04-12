@@ -19,6 +19,10 @@
   var path = d3.geoPath().projection(projection);
 
   // select the svg area
+  var tooltip = d3.select("#map-container").append("div")	
+    .attr("class", "tooltip")				
+	.style("opacity", 0);
+	
   var legend = svg
   	.append("g")
   	.attr("class", "map-legend")
@@ -63,6 +67,8 @@
 	  .attr("id", "state-borders")
 	  .attr("d", path);
 
+	
+	var isMouseOver = false;
 
   	var circles = svg
 	    .selectAll("circle")
@@ -95,22 +101,39 @@
 	      console.log("mouseover on", this);
 	      // make the mouseover'd element
 		  // bigger and red
-		  update(d["Hive ID"])
+		  isMouseOver = true;
 	      d3.select(this)
 	        .transition()
 	        .duration(100)
 	        .attr('r', 20)
-	        .attr('fill', 'orange');
-	    })
+			.attr('fill', 'orange');
+
+			tooltip.transition()		
+				.duration(200)		
+				.style("opacity", .9);		
+			console.log(d)
+			tooltip.html(d.City)	
+				.style("left", (d3.event.pageX) + "px")		
+				.style("top", (d3.event.pageY - 28) + "px");
+		})
+		.on('mousedown', function(d, i) {
+			if(isMouseOver = true) {
+				update(d["Hive ID"])
+			}
+		})
 	    .on('mouseout', function(d, i) {
 	      console.log("mouseout", this);
 	      // return the mouseover'd element
-	      // to being smaller and black
+		  // to being smaller and black
+		  isMouseOver = false;
 	      d3.select(this)
 	        .transition()
 	        .duration(100)
 	        .attr('r', 4)
-	        .attr('fill', '#000000');
+			.attr('fill', '#000000');
+		  tooltip.transition()		
+			.duration(500)		
+			.style("opacity", 0);	
 	    });
 
     // svg.append("g").call(brush);

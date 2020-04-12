@@ -1,7 +1,7 @@
 // This is the javascript for the barcharts
-var margin = 50,
-    width = 900-margin*2,
-    height = 400-margin*2;
+var margin = 90,
+    width = 950-margin*2,
+    height = 450-margin*2;
 
 var x = d3.scaleBand().rangeRound([0, width], .05);
 
@@ -12,6 +12,10 @@ var xAxis = d3.axisBottom(x);
 var yAxis = d3.axisLeft(y).ticks(10);
 
 var barpadding = 8;
+
+var tooltip = d3.select("#chart-container").append("div")	
+.attr("class", "tooltip")				
+.style("opacity", 0);
 
 var svg = d3.select("#chart-container")
     .append("svg")
@@ -45,7 +49,7 @@ function render(csv){
             .attr("dy", ".15em")
             .attr("transform", function(d) {
                 return "rotate(-35)" 
-            });;
+            });
 
       // Rotate the plant names
       // I think I'm having an issue selecting the x axis text. Since there doesn't seem to be any text being appended to the axis
@@ -82,9 +86,47 @@ function render(csv){
               console.log(d);
               return y(d[data.columns[0]] * 100); 
             })
-          .attr("height", function(d) { return height - y(d[data.columns[0]] * 100); });
+          .attr("height", function(d) { return height - y(d[data.columns[0]] * 100); })
+          .on("mouseover", function(d, i) {
+            tooltip.transition()		
+                .duration(200)		
+                .style("opacity", .9);		
+            console.log(d)
+            tooltip.html(d["Common Name"])	
+                .style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px");
+          })
+          .on("mouseout", function(d, i) {
+            tooltip.transition()		
+                .duration(500)		
+                .style("opacity", 0);	
+          });
     });
 }
+
+function wrap(text, width) {
+    text.each(function() {
+      var text = d3.select(this),
+          words = text.text().split(/\s+/).reverse(),
+          word,
+          line = [],
+          lineNumber = 0,
+          lineHeight = 1.1, // ems
+          y = text.attr("y"),
+          dy = parseFloat(text.attr("dy")),
+          tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+      while (word = words.pop()) {
+        line.push(word);
+        tspan.text(line.join(" "));
+        if (tspan.node().getComputedTextLength() > width) {
+          line.pop();
+          tspan.text(line.join(" "));
+          line = [word];
+          tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+        }
+      }
+    });
+  }
 
 function update(csv){
     svg.selectAll("*").remove();
