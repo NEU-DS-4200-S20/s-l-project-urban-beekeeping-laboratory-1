@@ -25,12 +25,12 @@
   	.attr("transform", "translate(850,450)");
 
   // Handmade legend
-legend.append("circle").attr("cx",200).attr("cy",0).attr("r", 6).style("fill", "green")
-legend.append("circle").attr("cx",200).attr("cy",30).attr("r", 6).style("fill", "red")
-legend.append("circle").attr("cx",200).attr("cy",60).attr("r", 6).style("fill", "orange")
-legend.append("text").attr("x", 220).attr("y", 0).text("Healthy Hive").style("font-size", "15px").attr("alignment-baseline","middle")
-legend.append("text").attr("x", 220).attr("y", 30).text("Unhealthy Hive").style("font-size", "15px").attr("alignment-baseline","middle")
-legend.append("text").attr("x", 220).attr("y", 60).text("No Data").style("font-size", "15px").attr("alignment-baseline","middle")
+  legend.append("circle").attr("cx",200).attr("cy",0).attr("r", 6).style("fill", "green")
+  legend.append("circle").attr("cx",200).attr("cy",30).attr("r", 6).style("fill", "red")
+  legend.append("circle").attr("cx",200).attr("cy",60).attr("r", 6).style("fill", "orange")
+  legend.append("text").attr("x", 220).attr("y", 0).text("Healthy Hive").style("font-size", "15px").attr("alignment-baseline","middle")
+  legend.append("text").attr("x", 220).attr("y", 30).text("Unhealthy Hive").style("font-size", "15px").attr("alignment-baseline","middle")
+  legend.append("text").attr("x", 220).attr("y", 60).text("No Data").style("font-size", "15px").attr("alignment-baseline","middle")
 
 
   d3.json("data/us.json", function(us) {
@@ -39,43 +39,6 @@ legend.append("text").attr("x", 220).attr("y", 60).text("No Data").style("font-s
 		drawMap(us, cities);
 	});
   });
-
-  function drawChart(data) {
-
-  //   console.log(data)
-
-  // 	x.domain(data.map(function(d) { return d["Common Name"]; }));
-  // 	y.domain([0, d3.max(data, function(d) { return d.Percentage; })]);
-
-  // svg.append("g")
-  //     .attr("class", "x axis")
-  //     .attr("transform", "translate(0," + height + ")")
-  //     .call(xAxis)
-  //   .selectAll("text")
-  //     .style("text-anchor", "end")
-  //     .attr("dx", "-.8em")
-  //     .attr("dy", "-.55em")
-  //     .attr("transform", "rotate(-90)" );
-
-  // svg.append("g")
-  //     .attr("class", "y axis")
-  //     .call(yAxis)
-  //   .append("text")
-  //     .attr("transform", "rotate(-90)")
-  //     .attr("y", 6)
-  //     .attr("dy", ".71em")
-  //     .style("text-anchor", "end")
-  //     .text("Value ($)");
-
-  // svg.selectAll("bar")
-  //     .data(data)
-  //   .enter().append("rect")
-  //     .style("fill", "steelblue")
-  //     .attr("x", function(d) { return x(d["Common Name"]); })
-  //     .attr("width", x.bandwidth())
-  //     .attr("y", function(d) { return y(d.Percentage); })
-  //     .attr("height", function(d) { return height - y(d.Percentage); });
-  }
 
   function drawMap(us, cities) {
 	var mapGroup = svg.append("g").attr("class", "mapGroup");
@@ -107,7 +70,6 @@ legend.append("text").attr("x", 220).attr("y", 60).text("No Data").style("font-s
 	    .enter()
 	    .append("circle")
 	    .attr("class", "cities")
-	    // Also need to add something so it doesn't add multiple data points for the same latitude and longitude
 	    .attr("cx", function(d) {
 	    	console.log(d)
 	      return projection([d.Longitude, d.Latitude])[0];
