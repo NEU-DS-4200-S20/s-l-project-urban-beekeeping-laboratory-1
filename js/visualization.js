@@ -19,9 +19,6 @@
   var path = d3.geoPath().projection(projection);
 
   // select the svg area
-  var tooltip = d3.select("#map-container").append("div")	
-    .attr("class", "tooltip")				
-	.style("opacity", 0);
 	
   var legend = svg
   	.append("g")
@@ -57,6 +54,10 @@
   });
 
   function drawMap(us, cities) {
+	var tooltip = d3.select("#map-container").append("div")	
+    .attr("class", "tooltip")				
+	.style("opacity", 0);
+
 	var mapGroup = svg.append("g").attr("class", "mapGroup");
 
 	mapGroup
@@ -123,10 +124,9 @@
 			tooltip.transition()		
 				.duration(200)		
 				.style("opacity", .9);		
-			console.log(d)
 			tooltip.html(d.City)	
-				.style("left", (d3.event.pageX) + "px")		
-				.style("top", (d3.event.pageY - 28) + "px");
+				.style("left", (d3.mouse(this)[0]) + "px")		
+				.style("top", (d3.mouse(this)[1] - 28) + "px");
 		})
 		.on('mousedown', function(d, i) {
 			if(isMouseOver = true) {
@@ -144,7 +144,7 @@
 	        .attr('r', 4)
 			.attr('fill', '#000000');
 		  tooltip.transition()		
-			.duration(500)		
+			.duration(100)		
 			.style("opacity", 0);	
 	    });
 

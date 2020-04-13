@@ -13,10 +13,6 @@ var yAxis = d3.axisLeft(y).ticks(10);
 
 var barpadding = 8;
 
-var tooltip = d3.select("#chart-container").append("div")	
-.attr("class", "tooltip")				
-.style("opacity", 0);
-
 var svg = d3.select("#chart-container")
     .append("svg")
     .attr("width", width + 2 * margin)
@@ -27,6 +23,10 @@ var svg = d3.select("#chart-container")
 
 // Draw the graph    
 function render(csv){
+    var tooltip = d3.select("#chart-container").append("div")	
+        .attr("class", "tooltip")				
+        .style("opacity", 0);
+        
     var csvPath = "data/hive\ plant\ species\ data/"+csv+".csv"
     d3.csv(csvPath, function(err, data) {
 
