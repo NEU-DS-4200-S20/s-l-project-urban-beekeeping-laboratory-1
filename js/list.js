@@ -49,7 +49,6 @@
     d3.csv("data/ids_cities_health.csv", function(data) {
         console.log(data)
         chart(data)
-        listContainsPlant(["S011821", "S011893"])
     });
 
     function highlightMap(hive) {
