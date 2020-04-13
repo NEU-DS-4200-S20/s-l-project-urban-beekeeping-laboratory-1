@@ -34,7 +34,7 @@
             .text(function (d) { return d.value })
 
         rows.on("mousedown", (d, i, elements) => {
-            update(d['Hive ID'])
+            update(d['Hive ID'], d['Health'])
             highlightMap(d['Hive ID'])
         }).on("mouseover", (d, i, elements) => {
             d3.select(elements[i]).classed("mouseover", true)
@@ -65,16 +65,17 @@
     function markPoint (element) {
         var currentElement = d3.select(element).raise();
         currentElement
+          .classed('selected', true)
           .transition()
           .duration(100)
           .attr('r', 20)
-          .attr('fill', 'orange')
-          .attr('class', 'selected');
+          .attr('fill', 'orange');
       }
 
       function clearMarks(elements) {
           elements.each((d, i, elements) => {
-            d3.select(elements[i]).classed('selected', false)
+            d3.select(elements[i])
+            .classed('selected', false)
             .transition()
             .duration(100)
             .attr('r', 4)

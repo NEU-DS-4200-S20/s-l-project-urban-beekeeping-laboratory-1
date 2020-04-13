@@ -113,7 +113,7 @@
 		})
 		.on('mousedown', function(d, i) {
 			if(isMouseOver = true) {
-				update(d["Hive ID"])
+				update(d["Hive ID"],  d['Health'])
 			}
 		})
 	    .on('mouseout', function(d, i, elements) {
@@ -127,6 +127,7 @@
 		function addTooltip (element) {
 		  var currentElement = d3.select(element);
 		  currentElement
+		    .classed('selected', true)
 	        .transition()
 	        .duration(100)
 	        .attr('r', 20)
@@ -141,9 +142,10 @@
 
 		function removeTooltip(element) {
 			d3.select(element)
+			.classed('selected', false)
 	        .transition()
 	        .duration(100)
-	        .attr('r', 4);
+			.attr('r', 4);
 		  tooltip.transition()		
 			.duration(100)		
 			.style("opacity", 0);

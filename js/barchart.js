@@ -22,7 +22,18 @@ var svg = d3.select("#chart-container")
 
 
 // Draw the graph    
-function render(csv){
+function render(csv, health){
+    var color = "orange"
+    if(health === "Excellent") {
+        color = "green"
+    } else if (health === "Good") {
+        color = "green"
+    } else if (health === "Troubled") {
+        color = "red"
+    } else if (health === "Dead") {
+        color = "red"
+    }
+
     var tooltip = d3.select("#chart-container").append("div")	
         .attr("class", "tooltip")				
         .style("opacity", 0);
@@ -75,7 +86,7 @@ function render(csv){
       svg.selectAll("bar")
           .data(data)
           .enter().append("rect")
-          .style("fill", "steelblue")
+          .style("fill", color)
           .attr("x", function(d) { return x(d[data.columns[1]]); })
           .attr("width", width / data.length - barpadding)
           .attr("y", function(d) { 
@@ -122,9 +133,9 @@ function wrap(text, width) {
     });
   }
 
-function update(csv){
+function update(csv, health){
     svg.selectAll("*").remove();
-    render(csv);
+    render(csv, health);
 }
 
 update("S017413");
