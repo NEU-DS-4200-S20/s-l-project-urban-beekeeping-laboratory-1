@@ -38,24 +38,17 @@
   // 	.append("g")
   // 	.attr("class", "vertical-menu")
   // 	.attr("transform", "translate(1050,500)");
-  var scrollMenu = d3
-  	.select("#vertical-menu");
-
-  scrollMenu.append("a")
-  	.append("text")
-  	.attr("y", 30)
-  	.text("Option 1");
 
   d3.json("data/us.json", function(us) {
 	//Error
-	d3.csv("data/cities_to_plot.csv", function(cities) {
+	d3.csv("data/ids_cities_with_coords.csv", function(cities) {
 		drawMap(us, cities);
 	});
   });
 
   function drawMap(us, cities) {
-	var tooltip = d3.select("#map-container").append("div")	
-    .attr("class", "tooltip")				
+	var tooltip = d3.select("div.vis-holder").append("div")	
+	.attr("class", "tooltip")				
 	.style("opacity", 0);
 
 	var mapGroup = svg.append("g").attr("class", "mapGroup");
@@ -90,7 +83,7 @@
 	    .append("circle")
 	    .attr("class", "cities")
 	    .attr("cx", function(d) {
-	    	console.log(d)
+	    	//console.log(d)
 	      return projection([d.Longitude, d.Latitude])[0];
 	    })
 	    .attr("cy", function(d) {
@@ -98,7 +91,7 @@
 	    })
 	    .attr("r", 4)
 	    .style('fill', function(d) {
-	    	console.log(d.Health);
+	    	//console.log(d.Health);
 	        	if (d.Health == "Good" || d.Health == "Excellent") { 
 	        		return "green"; 
 	        	}
@@ -111,7 +104,7 @@
     	})
 
 	    .on('mouseover', function(d, i) {
-	      console.log("mouseover on", this);
+	      //console.log("mouseover on", this);
 	      // make the mouseover'd element
 		  // bigger and red
 		  isMouseOver = true;
@@ -124,9 +117,9 @@
 			tooltip.transition()		
 				.duration(200)		
 				.style("opacity", .9);		
-			tooltip.html(d.City)	
-				.style("left", (d3.mouse(this)[0]) + "px")		
-				.style("top", (d3.mouse(this)[1] - 28) + "px");
+			tooltip.html(d.City)
+				.style("left", (d3.event.pageX) + "px")		
+				.style("top", (d3.event.pageY - 28) + "px");
 		})
 		.on('mousedown', function(d, i) {
 			if(isMouseOver = true) {
@@ -134,7 +127,7 @@
 			}
 		})
 	    .on('mouseout', function(d, i) {
-	      console.log("mouseout", this);
+	      //console.log("mouseout", this);
 	      // return the mouseover'd element
 		  // to being smaller and black
 		  isMouseOver = false;

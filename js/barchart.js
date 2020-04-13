@@ -26,16 +26,13 @@ function render(csv){
     var tooltip = d3.select("#chart-container").append("div")	
         .attr("class", "tooltip")				
         .style("opacity", 0);
-        
+
     var csvPath = "data/hive\ plant\ species\ data/"+csv+".csv"
     d3.csv(csvPath, function(err, data) {
-
-        console.log(err)
-        console.log(data)
     
       x.domain(data.map(function(d) { return d[data.columns[1]]; }));
       y.domain([0, d3.max(data, function(d) { 
-      	console.log(d[data.columns[0]] * 100);
+      	//console.log(d[data.columns[0]] * 100);
       	return d[data.columns[0]] * 100; })]);
 
       // Draw the axes
@@ -55,7 +52,7 @@ function render(csv){
       // I think I'm having an issue selecting the x axis text. Since there doesn't seem to be any text being appended to the axis
       svg.selectAll("x axis")
       	.attr("transform", function (d) {
-      		console.log('can you hear me')
+      		//console.log('can you hear me')
       		return "translate(" + (this.getBBox().width) + "," + this.getBBox().height + ")rotate(-45)";
       	})
 
@@ -69,10 +66,10 @@ function render(csv){
             .attr("transform", "translate(" + -30 + "," + (height / 2) + ")rotate(-90)")
             .text("Percentage of Honey");
 
-      svg.append("text")
-       		.attr("text-anchor", "middle")
-       		.attr("transform", "translate(" + (width / 2) + "," + (height + 50) + ")")
-       		.text("Plant names");
+    //   svg.append("text")
+    //    		.attr("text-anchor", "middle")
+    //    		.attr("transform", "translate(" + (width / 2) + "," + (height + 50) + ")")
+    //    		.text("Plant names");
 
       // Draw the bars
       svg.selectAll("bar")
@@ -82,8 +79,6 @@ function render(csv){
           .attr("x", function(d) { return x(d[data.columns[1]]); })
           .attr("width", width / data.length - barpadding)
           .attr("y", function(d) { 
-              console.log(d[data.columns[0]]);
-              console.log(d);
               return y(d[data.columns[0]] * 100); 
             })
           .attr("height", function(d) { return height - y(d[data.columns[0]] * 100); })
@@ -91,7 +86,6 @@ function render(csv){
             tooltip.transition()		
                 .duration(200)		
                 .style("opacity", .9);		
-            console.log(d)
             tooltip.html(d["Common Name"])	
                 .style("left", (d3.event.pageX) + "px")		
                 .style("top", (d3.event.pageY - 28) + "px");

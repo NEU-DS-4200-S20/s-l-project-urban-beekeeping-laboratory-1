@@ -57,12 +57,11 @@
     <!--<svg id="vis-svg"
       preserveAspectRatio="xMidYMid meet" class="marks" viewBox="0 0 821 520"> -->
     <!-- Addint the vertical menu next to the map-->
-    <div id="vertical-menu">
-      <a href="#">List of Hives</a>
+    <div class="vis-container">
+      <div id="vertical-menu"></div>
+      <!-- Splitting the visualizations to be stacked so the map can be bigger -->
+      <div id='chart-container'></div>
     </div>
-  <!-- Splitting the visualizations to be stacked so the map can be bigger -->
-    <div id='chart-container'></div>
-
   </div>
 
   <!-- Your writeup goes here -->
@@ -144,6 +143,7 @@
   <script src="lib/d3.v4/d3.v4.js"></script>
   <script src="js/visualization.js"></script>
   <script src='js/barchart.js'></script>
+  <script src='js/list.js'></script>
 
   <!-- If slow try to add to local library -->
   <script src='https://d3js.org/topojson.v3.min.js'></script>
