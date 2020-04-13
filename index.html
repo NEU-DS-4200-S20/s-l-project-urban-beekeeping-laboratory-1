@@ -42,9 +42,6 @@
     
     <p>Our group worked with the Best Bees Company in Roxbury. Their mission as a company is to improve bee health. To do this they set up and care for hives around the country. They invented a technique to analyze the plants that make up the honey produced by the hive called HoneyDNA. They are interested in seeing if there are certain species of plants are correlated with hive health. To do this they wanted a visualization that made it easy to compare the health of the hives with the plants found in the honey.</p>
 
-    <!-- <p><em>Expectation: There is a clear focus, and a developed explanation of the problem, and a reasonable response is proposed.</em></p> -->
-
-
     <h1>Visualization</h1>
 
   </div>
@@ -79,16 +76,12 @@
 
     <h1>Visualization explanation</h1>
 
-    <p><em>Final visualization screenshots (PNG images), design justifications, UI walk-through, and linked presentation slides.</em></p>
     <p>One of the main goals of our project was to identify "blue zones" or areas where hives were doing well. This was to try to narrow down areas that might have healthy bee hives and compare them to areas that had unhealthy hives. Therefore we wanted to use a map as one of our visualizations. Our other task was to look at the presence of different plants in the honey of different hives. We decided the best way to visualize this was with a bar chart for each hive.</p>
     <img src='/images/FinalDesign1.jpg' width='650px'>
     <p>As can be seen in the image above it is easy to see areas of these "Blue Zones". To use this visualization the first interaction involves clicking on one of the circles on the map, representing a hive or a group of hives. This will update the bar chart with the HoneyDNA of the hive selected.</p>
 
     <h1>Data Analysis</h1>
-    <p><em>Summary of data, data types, and data preprocessing.</em></p>
     <p>We used a couple different data sets to compile this visualization. We were given an excel file containing the HoneyDNA breakdown and location for every hive Best Bees had data on. Each sheet represented a different hive. We split this data into individual csv sheets to be more easily accessed and referenced. The location of each hive was given by city and state so we used a Python script to find the latitude and longitude coordinates of each location. We were also given a couple different excel files containing the condition of the hives for the last four years. Using these files we created a single file containing the condition of the hive for the year the HoneyDNA sample was collected. We also used a JSON file provided during an online lecture containing the data necessary to create a map of the United States.
-
-    <p><em>Expectation: Data sources match the problem statement and are appropriate. These descriptions should be very explicit so someone could read your page and properly reproduce your results.</em></p>
 
     <h1>Task Analysis</h1>
 
@@ -96,11 +89,8 @@
 
     <p>The areas of good bee health were visualized on the map with the color blue to help represent "Blue Zones". By looking at the map it is easy to see if an area has good bee health of not just from the color encodings. Hovering over a point on the graph will update the bar chart in the visualization so the plants found in the HoneyDNA can be seen visually. This way it is easy to see if the hive gets most of their pollen from one type of plant or from a variety of different plants. This can then be compared to other healthy hives to see if there is any correlation between the plants used by the bees and the health of the hives.</p>
 
-    <p><em>Expectation: Clearly describes domain tasks, processes, goals and abstract tasks for domain problems.</em></p>
-
     <h1>Design Process</h1>
 
-    <p><em>Sketches and design choices to justify final visualization.</em></p>
     <p>Our designs started off more ambitious either planning on dividing the data by county or just using dots to represent the location of different hives. This later changed to having dots representing locations of hives. An area with multiple hives would have one dot representing the location of all the hives in that area which could then be clicked on to pull up multiple hives. The color encoding was also changed to easily see the difference between a healthy hive or a dead hive. And another color was added to show hives that did not have health data.</p>
     <img src='/images/CountyMap.jpg' alt='First County Map Visualization' width='650px'>
     <img src='/images/MultipleHives.jpg' alt='Visual Depiction of Interaction with Multiple Hives in one area' width='650px'>
@@ -108,22 +98,12 @@
     <img src='/images/BarCharts.png' alt='First Bar Chart Visualization' width='650px'>
     <img src='/images/OverlappingBarChart.jpg' alt='Second Bar Chart Visualization' width='650px'>
     <p>One of the major improvements suggested from the usability testing was to make sure to include axes labels on the bar charts.</p>
-    <!-- I don't know what else I should add here in the discussion from usability testing -->
-
-    <p><em>Expectation: Evidence of iterative improvement.
-    Logical discussion of design choices grounded in theory from course.
-    Discusses feedback from usability testing.</em></p>
-
 
     <h1>Conclusion</h1>
 
     <p>We were able to plot points on a map of the US to show the location of hives with HoneyDNA data. We adjusted the color of these points to be able to tell where there were healthy hives, dead hives, or hives with no health data. The bar chart underneath the map updates with the hover over a hive to show the HoneyDNA of that specific hive.</p>
 
     <p>There is more work that can be done for the future. We would like to add in an ability to highlight the hives that contain a certain species of plant. This way it can be seen if a lot of healthy hives contain that plant and thus may be used to identify correlation of plants and hive health. This can lead to scientific research into the plant species that may offer the biggest improvement to hive health. This can be used to encourage people to plant bee-friendly species to improve the overall condition of bees. The Urban Beekeeping Laboratory would like to add this visualization to their website so that it can be accessed by people who are interested in where bees have the best health and which plants might provide benefit to the overall health.</p>
-    <p><em>Short summary of work completed and areas for improvement/future-work.</em></p>
-
-    <p><em>Expectation: Meaningfully wraps up project and has good future directions.</em></p>
-
 
     <h1>Acknowledgments</h1>
 
