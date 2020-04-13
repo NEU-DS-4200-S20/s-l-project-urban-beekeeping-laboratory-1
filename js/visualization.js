@@ -48,7 +48,8 @@
 
   function drawMap(us, cities) {
 	var tooltip = d3.select("div.vis-holder").append("div")	
-	.attr("class", "tooltip")				
+	.attr("class", "tooltip")
+	.attr("id", "tooltipMap")				
 	.style("opacity", 0);
 
 	var mapGroup = svg.append("g").attr("class", "mapGroup");
@@ -103,48 +104,52 @@
         		}
     	})
 
-	    .on('mouseover', function(d, i) {
+	    .on('mouseover', function(d, i, elements) {
 	      //console.log("mouseover on", this);
 	      // make the mouseover'd element
 		  // bigger and red
 		  isMouseOver = true;
-	      d3.select(this)
-	        .transition()
-	        .duration(100)
-	        .attr('r', 20)
-			.attr('fill', 'orange');
-
-			tooltip.transition()		
-				.duration(200)		
-				.style("opacity", .9);		
-			tooltip.html(d.City)
-				.style("left", (d3.event.pageX) + "px")		
-				.style("top", (d3.event.pageY - 28) + "px");
+	      addTooltip(elements[i])
 		})
 		.on('mousedown', function(d, i) {
 			if(isMouseOver = true) {
 				update(d["Hive ID"])
 			}
 		})
-	    .on('mouseout', function(d, i) {
+	    .on('mouseout', function(d, i, elements) {
 	      //console.log("mouseout", this);
 	      // return the mouseover'd element
 		  // to being smaller and black
 		  isMouseOver = false;
-	      d3.select(this)
+		  removeTooltip(elements[i])	
+		});
+		
+		function addTooltip (element) {
+		  var currentElement = d3.select(element);
+		  currentElement
 	        .transition()
 	        .duration(100)
-	        .attr('r', 4)
-			.attr('fill', '#000000');
+	        .attr('r', 20)
+			.attr('fill', 'orange')
+		  tooltip.transition()		
+			.duration(200)		
+			.style("opacity", .9);		
+		  tooltip.html(currentElement.data()[0].City)
+			.style("left", (parseFloat(currentElement.attr("cx")) + 20) + "px")		
+			.style("top", (parseFloat(currentElement.attr("cy")) + 820) + "px");
+		}
+
+		function removeTooltip(element) {
+			d3.select(element)
+	        .transition()
+	        .duration(100)
+	        .attr('r', 4);
 		  tooltip.transition()		
 			.duration(100)		
-			.style("opacity", 0);	
-	    });
-
+			.style("opacity", 0);
+		}
     // svg.append("g").call(brush);
   }
-
-
 
 
 })());

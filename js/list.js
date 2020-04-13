@@ -3,8 +3,6 @@
 ((() => {
 
 
-
-
     function chart(data) {
 
         var columns = Object.keys(data[0])
@@ -37,6 +35,7 @@
 
         rows.on("mousedown", (d, i, elements) => {
             update(d['Hive ID'])
+            highlightMap(d['Hive ID'])
         }).on("mouseover", (d, i, elements) => {
             d3.select(elements[i]).classed("mouseover", true)
         }).on("mouseout", (d, i, elements) => {
@@ -52,6 +51,35 @@
         chart(data)
         listContainsPlant(["S011821", "S011893"])
     });
+
+    function highlightMap(hive) {
+        var circles = d3.selectAll("circle.cities")
+        clearMarks(d3.selectAll("circle.selected"))
+        circles.each((d, i, elements) => {
+            if(d['Hive ID'] === hive) {
+                markPoint(elements[i])
+            }
+        })
+    }
+
+    function markPoint (element) {
+        var currentElement = d3.select(element).raise();
+        currentElement
+          .transition()
+          .duration(100)
+          .attr('r', 20)
+          .attr('fill', 'orange')
+          .attr('class', 'selected');
+      }
+
+      function clearMarks(elements) {
+          elements.each((d, i, elements) => {
+            d3.select(elements[i]).classed('selected', false)
+            .transition()
+            .duration(100)
+            .attr('r', 4)
+          })
+      }
 
     function listContainsPlant(hiveList) {
         var row = d3.selectAll('tr')
