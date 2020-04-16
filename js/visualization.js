@@ -109,9 +109,9 @@
 		.on('mousedown', function(d, i, elements) {
 			
 			var oldSelection = d3.select("circle.selected")
+			d3.select("tr.selected").classed("selected", false)
 			oldSelection.classed("selected", false)
 			removeTooltip(oldSelection)
-
 			update(d["Hive ID"],  d['Health'], d["City"])
 			d3.select(elements[i]).classed('selected', true)
 

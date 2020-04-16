@@ -46,14 +46,18 @@ table {
 	text-align: left;
   }
 
-	.mouseover {
-		background-color: lightgray;
-	}
+.mouseover {
+	background-color: lightgray;
+}
 
-	.containsPlant {
-		background-color: lightgreen;
+.containsPlant {
+	background-color: lightgreen;
 }
   
+tr.selected {
+	background-color: lightcoral;
+}
+
 .states {
   fill: #aaa;
 }
