@@ -33,12 +33,6 @@
   legend.append("text").attr("x", 220).attr("y", 30).text("Unhealthy Hive").style("font-size", "15px").attr("alignment-baseline","middle")
   legend.append("text").attr("x", 220).attr("y", 60).text("No Data").style("font-size", "15px").attr("alignment-baseline","middle")
 
-  // Add the vertical scroll menu
-  // var scrollMenu = svg
-  // 	.append("g")
-  // 	.attr("class", "vertical-menu")
-  // 	.attr("transform", "translate(1050,500)");
-
   d3.json("data/us.json", function(us) {
 	//Error
 	d3.csv("data/ids_cities_with_coords.csv", function(cities) {
@@ -111,14 +105,16 @@
 		  isMouseOver = true;
 	      addTooltip(elements[i])
 		})
+
 		.on('mousedown', function(d, i, elements) {
 			
 			var oldSelection = d3.select("circle.selected")
 			oldSelection.classed("selected", false)
 			removeTooltip(oldSelection)
 
-			update(d["Hive ID"],  d['Health'])
+			update(d["Hive ID"],  d['Health'], d["City"])
 			d3.select(elements[i]).classed('selected', true)
+
 		})
 	    .on('mouseout', function(d, i, elements) {
 	      //console.log("mouseout", this);

@@ -34,7 +34,7 @@
             .text(function (d) { return d.value })
 
         rows.on("mousedown", (d, i, elements) => {
-            update(d['Hive ID'], d['Health'])
+            update(d['Hive ID'], d['Health'], d['City'])
             highlightMap(d['Hive ID'])
         }).on("mouseover", (d, i, elements) => {
             d3.select(elements[i]).classed("mouseover", true)

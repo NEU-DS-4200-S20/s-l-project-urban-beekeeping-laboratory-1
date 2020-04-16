@@ -22,7 +22,7 @@ var svg = d3.select("#chart-container")
 
 
 // Draw the graph    
-function render(csv, health){
+function render(csv, health, city){
     var color = "orange"
     if(health === "Excellent") {
         color = "green"
@@ -77,10 +77,11 @@ function render(csv, health){
             .attr("transform", "translate(" + -30 + "," + (height / 2) + ")rotate(-90)")
             .text("Percentage of Honey");
 
-    //   svg.append("text")
-    //    		.attr("text-anchor", "middle")
-    //    		.attr("transform", "translate(" + (width / 2) + "," + (height + 50) + ")")
-    //    		.text("Plant names");
+     svg.append("text")
+     		.attr("text-anchor", "middle")
+     		.attr("transform", "translate(" + (width / 2) + ",0)")
+     		.text("Hive ID: " + csv + ", City: " + city)
+
 
       // Draw the bars
       svg.selectAll("bar")
@@ -133,9 +134,9 @@ function wrap(text, width) {
     });
   }
 
-function update(csv, health){
+function update(csv, health, city){
     svg.selectAll("*").remove();
-    render(csv, health);
+    render(csv, health, city);
 }
 
-update("S017413");
+update("S011821", "", "Acton");
