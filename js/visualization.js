@@ -111,23 +111,28 @@
 		  isMouseOver = true;
 	      addTooltip(elements[i])
 		})
-		.on('mousedown', function(d, i) {
-			if(isMouseOver = true) {
-				update(d["Hive ID"],  d['Health'])
-			}
+		.on('mousedown', function(d, i, elements) {
+			
+			var oldSelection = d3.select("circle.selected")
+			oldSelection.classed("selected", false)
+			removeTooltip(oldSelection)
+
+			update(d["Hive ID"],  d['Health'])
+			d3.select(elements[i]).classed('selected', true)
 		})
 	    .on('mouseout', function(d, i, elements) {
 	      //console.log("mouseout", this);
 	      // return the mouseover'd element
 		  // to being smaller and black
 		  isMouseOver = false;
-		  removeTooltip(elements[i])	
+		  if(!d3.select(elements[i]).classed("selected")) {
+			removeTooltip(d3.select(elements[i]))
+		  }
 		});
 		
 		function addTooltip (element) {
 		  var currentElement = d3.select(element);
 		  currentElement
-		    .classed('selected', true)
 	        .transition()
 	        .duration(100)
 	        .attr('r', 20)
@@ -141,8 +146,7 @@
 		}
 
 		function removeTooltip(element) {
-			d3.select(element)
-			.classed('selected', false)
+			element
 	        .transition()
 	        .duration(100)
 			.attr('r', 4);
