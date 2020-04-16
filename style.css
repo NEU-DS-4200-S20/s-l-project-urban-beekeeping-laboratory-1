@@ -81,6 +81,9 @@ rect {
 .bad {
 	fill: red
 }
+.noPlant {
+	fill: black
+}
 
 #state-borders {
   fill: none;

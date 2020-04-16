@@ -54,9 +54,19 @@ d3.csv("data/ids_cities_health.csv", function(data) {
 //Marks the corresponing points on the map with a given class and marking function
 function highlightMap(hives, pointClass, pointFunction) {
     var circles = d3.selectAll("circle.cities")
-    clearMarks(d3.selectAll(`circle.${pointClass}`))
+    clearMarks(d3.selectAll(`circle.${pointClass}`), pointClass)
     circles.each((d, i, elements) => {
         if(hives.includes(d['Hive ID'])) {
+            pointFunction(elements[i],pointClass)
+        }
+    })
+}
+
+function containsPlantHighlightMap(hives, pointClass, pointFunction) {
+    var circles = d3.selectAll("circle.cities")
+    clearMarks(d3.selectAll(`circle.${pointClass}`), pointClass)
+    circles.each((d, i, elements) => {
+        if(!hives.includes(d['Hive ID'])) {
             pointFunction(elements[i],pointClass)
         }
     })
@@ -92,8 +102,8 @@ function clearMarks(elements, pointClass) {
 
 //Highlights all hives provided with containsPlant class.
 function listContainsPlant(hiveList) {
-    d3.selectAll('tr.containsPlant').classed("containsPlant", false)
-    highlightMap(hiveList, "containsPlant", highlightPoint)
+    d3.selectAll('.noPlant').classed("noPlant", false)
+    highlightMap(hiveList, "noPlant", highlightPoint)
     var row = d3.selectAll('tr')
     .each((d, i, elements) => {
         if(d == null || hiveList == null) {

@@ -93,8 +93,7 @@
 
 		.on('mousedown', function(d, i, elements) {
 			
-			var oldSelection = d3.select("circle.selected")
-			d3.select("tr.selected").classed("selected", false)
+			var oldSelection = d3.selectAll(".selected")
 			oldSelection.classed("selected", false)
 			removeTooltip(oldSelection)
 			update(d["Hive ID"],  d['Health'], d["City"])
@@ -107,6 +106,12 @@
 			removeTooltip(d3.select(elements[i]))
 		  }
 		});
+
+		d3.selection.prototype.moveToFront = function() {  
+			return this.each(function(){
+			  this.parentNode.appendChild(this);
+			});
+		  };
 		
 		//Renders the tooltip and highlights point on map
 		function addTooltip (element) {
@@ -114,7 +119,8 @@
 		  currentElement
 	        .transition()
 	        .duration(100)
-	        .attr('r', 20)
+			.attr('r', 20)
+			.moveToFront()
 		  tooltip.transition()		
 			.duration(200)		
 			.style("opacity", .9);		
@@ -122,6 +128,7 @@
 			.style("left", (parseFloat(currentElement.attr("cx")) + 20) + "px")		
 			.style("top", (parseFloat(currentElement.attr("cy")) + 820) + "px");
 		}
+
 
 		//Removes Tooltip and highlights
 		function removeTooltip(element) {
