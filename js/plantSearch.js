@@ -1,25 +1,43 @@
-// let find_plants_script = 'Find Plants.py'
+//This function sets up a dictionary of Hives and plants found in honey samples
+//This allows us to search for particular plants found near each Hive
+var hiveDictionary = []
 
-// function postData(input) {
-// 	console.log('hello there');
-//     $.ajax({
-//         type: "POST",
-//         url: find_plants_script,
-//         data: { param: input },
-//         success: callbackFunc
-//     });
-// }
+d3.csv("data/ids_cities_health.csv", function(data) {
+    var i;
+    for(i = 0; i < data.length; i++) {
+        var hiveID = data[i]["Hive ID"]
+        var filepath = "data/hive\ plant\ species\ data/" + hiveID + ".csv"
+        extract(filepath, hiveID)
+    }
+});
 
-// function callbackFunc(response) {
-//     // do something with the response
-//     console.log(response);
-// }
+async function extract(filepath, hiveID) {
+    await d3.csv(filepath, (hive) => {
+        var hiveObject = {}
+        var plantList = []
+        var j;
+        for(j = 0; j < hive.length; j++) {
+            if(hive[j]["Common Name"] != null) {
+                plantList.push(hive[j]["Common Name"])
+            }
+        }
+        hiveObject["Hive"] = hiveID
+        hiveObject["Plants"] = plantList
+        hiveDictionary.push(hiveObject)
+    });
+}
 
-// postData('clover');
 
-// // $.get(find_plants_script, function(data) {
-// // 	if (data) {
-// // 		console.log('hello there');
-// // 		console.log(data);
-// // 	}
-// // })
+//Given a plant name, finds all hives with those plants using the dictionary
+function hivesWithPlant(plant) {
+    console.log(plant)
+    var i
+    var hiveList = []
+    for(i = 0; i < hiveDictionary.length; i++) {
+        var plantList = hiveDictionary[i]["Plants"]
+        if(plantList.includes(plant)) {
+            hiveList.push(hiveDictionary[i]["Hive"])
+        }
+    }
+    return hiveList;
+}

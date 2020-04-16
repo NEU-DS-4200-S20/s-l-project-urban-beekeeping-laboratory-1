@@ -46,20 +46,40 @@ table {
 	text-align: left;
   }
 
-.mouseover {
+tr.mouseover {
 	background-color: lightgray;
 }
 
-.containsPlant {
-	background-color: lightgreen;
+tr.containsPlant {
+	background-color: lightskyblue;
 }
   
 tr.selected {
-	background-color: lightcoral;
+	background-color: gray;
+}
+
+circle.containsPlant {
+	stroke: #005eff;
+	stroke-width: 2px;
 }
 
 .states {
   fill: #aaa;
+}
+
+circle {
+	fill: orange;
+}
+rect {
+	fill: orange;
+}
+
+.good {
+	fill: #05a643
+}
+
+.bad {
+	fill: red
 }
 
 #state-borders {
@@ -75,9 +95,6 @@ tr.selected {
   fill: orange;
 }*/
 
-circle.selected {
-  fill: red;
-}
 
 /*svg {
 	display: block;

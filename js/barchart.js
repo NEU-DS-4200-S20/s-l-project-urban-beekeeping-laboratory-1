@@ -23,17 +23,6 @@ var svg = d3.select("#chart-container")
 
 // Draw the graph    
 function render(csv, health, city){
-    var color = "orange"
-    if(health === "Excellent") {
-        color = "green"
-    } else if (health === "Good") {
-        color = "green"
-    } else if (health === "Troubled") {
-        color = "red"
-    } else if (health === "Dead") {
-        color = "red"
-    }
-
     var tooltip = d3.select("#chart-container").append("div")	
         .attr("class", "tooltip")				
         .style("opacity", 0);
@@ -60,18 +49,14 @@ function render(csv, health, city){
             });
 
       // Rotate the plant names
-      // I think I'm having an issue selecting the x axis text. Since there doesn't seem to be any text being appended to the axis
       svg.selectAll("x axis")
       	.attr("transform", function (d) {
-      		//console.log('can you hear me')
       		return "translate(" + (this.getBBox().width) + "," + this.getBBox().height + ")rotate(-45)";
       	})
 
       svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
-
-      // Add the labels for the axes taken from Pheobe Bright's Block http://bl.ocks.org/phoebebright/3061203
       svg.append("text")
             .attr("text-anchor", "middle")  
             .attr("transform", "translate(" + -30 + "," + (height / 2) + ")rotate(-90)")
@@ -86,8 +71,10 @@ function render(csv, health, city){
       // Draw the bars
       svg.selectAll("bar")
           .data(data)
-          .enter().append("rect")
-          .style("fill", color)
+          .enter()
+          .append("rect")
+          .classed("good", health === "Excellent" || health === "Good")
+          .classed("bad", health === "Troubled" || health === "Dead")
           .attr("x", function(d) { return x(d[data.columns[1]]); })
           .attr("width", width / data.length - barpadding)
           .attr("y", function(d) { 
@@ -106,10 +93,14 @@ function render(csv, health, city){
             tooltip.transition()		
                 .duration(500)		
                 .style("opacity", 0);	
+          })
+          .on("mousedown", function(d, i) {
+             listContainsPlant(hivesWithPlant(d["Common Name"]));
           });
     });
 }
 
+//Function to format labels for barchart
 function wrap(text, width) {
     text.each(function() {
       var text = d3.select(this),
@@ -134,9 +125,11 @@ function wrap(text, width) {
     });
   }
 
+//Updates the barchart for a given hive
 function update(csv, health, city){
     svg.selectAll("*").remove();
     render(csv, health, city);
 }
 
+//Default barchart
 update("S011821", "", "Acton");
