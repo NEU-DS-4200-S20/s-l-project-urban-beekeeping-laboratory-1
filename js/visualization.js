@@ -106,27 +106,21 @@
 			removeTooltip(d3.select(elements[i]))
 		  }
 		});
-
-		d3.selection.prototype.moveToFront = function() {  
-			return this.each(function(){
-			  this.parentNode.appendChild(this);
-			});
-		  };
 		
 		//Renders the tooltip and highlights point on map
 		function addTooltip (element) {
 		  var currentElement = d3.select(element);
 		  currentElement
+		    .raise()
 	        .transition()
 	        .duration(100)
 			.attr('r', 20)
-			.moveToFront()
 		  tooltip.transition()		
 			.duration(200)		
 			.style("opacity", .9);		
 		  tooltip.html(currentElement.data()[0].City)
 			.style("left", (parseFloat(currentElement.attr("cx")) + 20) + "px")		
-			.style("top", (parseFloat(currentElement.attr("cy")) + 820) + "px");
+			.style("top", (parseFloat(currentElement.attr("cy")) + 800) + "px");
 		}
 
 

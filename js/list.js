@@ -79,13 +79,12 @@ function markPoint (element, pointClass) {
         .classed(pointClass, true)
         .transition()
         .duration(100)
-        .attr('r', 20)
-        .attr('fill', 'orange');
+        .attr('r', 20);
 }
 
 //Assigns a class to a point
-function highlightPoint (element, pointClass) {
-    var currentElement = d3.select(element).raise();
+function hidePoint (element, pointClass) {
+    var currentElement = d3.select(element);
     currentElement.classed(pointClass, true)
 }
 
@@ -103,7 +102,10 @@ function clearMarks(elements, pointClass) {
 //Highlights all hives provided with containsPlant class.
 function listContainsPlant(hiveList) {
     d3.selectAll('.noPlant').classed("noPlant", false)
-    highlightMap(hiveList, "noPlant", highlightPoint)
+    d3.selectAll('.containsPlant').classed("containsPlant", false)
+    containsPlantHighlightMap(hiveList, "noPlant", hidePoint)
+    d3.selectAll('circle:not(.noPlant)').raise()
+    d3.selectAll(".selected").raise()
     var row = d3.selectAll('tr')
     .each((d, i, elements) => {
         if(d == null || hiveList == null) {
