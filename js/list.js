@@ -1,5 +1,5 @@
 // Immediately Invoked Function Expression to limit access to our 
-// variables and prevent 
+// variables
 
 //Renders the table of Hive data
 function chart(data) {

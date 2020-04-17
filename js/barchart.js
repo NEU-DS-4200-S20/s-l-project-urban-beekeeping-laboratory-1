@@ -18,7 +18,7 @@ var svg = d3.select("#chart-container")
     .attr("width", width + 2 * margin)
     .attr("height", height + 2 * margin)
     .append("g")
-    .attr("transform", `translate(${margin},${margin})`)
+    .attr("transform", `translate(${margin},${margin})`);
 
 
 // Draw the graph    
@@ -32,10 +32,9 @@ function render(csv, health, city){
     
       x.domain(data.map(function(d) { return d[data.columns[1]]; }));
       y.domain([0, d3.max(data, function(d) { 
-      	//console.log(d[data.columns[0]] * 100);
       	return d[data.columns[0]] * 100; })]);
 
-      // Draw the axes
+      // Draw the x-axis
       svg.append("g")
         .attr("class", "x axis")
         .attr("transform", `translate(0,${height})`)
@@ -52,11 +51,14 @@ function render(csv, health, city){
       svg.selectAll("x axis")
       	.attr("transform", function (d) {
       		return "translate(" + (this.getBBox().width) + "," + this.getBBox().height + ")rotate(-45)";
-      	})
+      	});
 
+      // Draw the y axis
       svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
+
+      // Add axis titles
       svg.append("text")
             .attr("text-anchor", "middle")  
             .attr("transform", "translate(" + -30 + "," + (height / 2) + ")rotate(-90)")
@@ -65,7 +67,7 @@ function render(csv, health, city){
      svg.append("text")
      		.attr("text-anchor", "middle")
      		.attr("transform", "translate(" + (width / 2) + ",0)")
-     		.text("Hive ID: " + csv + ", City: " + city)
+     		.text("Hive ID: " + csv + ", City: " + city);
 
 
       // Draw the bars
@@ -81,6 +83,8 @@ function render(csv, health, city){
               return y(d[data.columns[0]] * 100); 
             })
           .attr("height", function(d) { return height - y(d[data.columns[0]] * 100); })
+
+          // Add interactivity
           .on("mouseover", function(d, i) {
             tooltip.transition()		
                 .duration(200)		
