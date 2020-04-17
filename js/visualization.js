@@ -20,20 +20,21 @@
   
   var path = d3.geoPath().projection(projection);
 
-  // select the svg area
+  // Add a g element to the map svg
   var legend = svg
   	.append("g")
   	.attr("class", "map-legend")
   	.attr("transform", "translate(850,275)");
 
   // Handmade legend
-  legend.append("circle").attr("cx",200).attr("cy",0).attr("r", 6).style("fill", "green")
-  legend.append("circle").attr("cx",200).attr("cy",30).attr("r", 6).style("fill", "red")
-  legend.append("circle").attr("cx",200).attr("cy",60).attr("r", 6).style("fill", "orange")
-  legend.append("text").attr("x", 220).attr("y", 0).text("Healthy Hive").style("font-size", "15px").attr("alignment-baseline","middle")
-  legend.append("text").attr("x", 220).attr("y", 30).text("Unhealthy Hive").style("font-size", "15px").attr("alignment-baseline","middle")
-  legend.append("text").attr("x", 220).attr("y", 60).text("No Data").style("font-size", "15px").attr("alignment-baseline","middle")
+  legend.append("circle").attr("cx",200).attr("cy",0).attr("r", 6).attr("class", "good");
+  legend.append("circle").attr("cx",200).attr("cy",30).attr("r", 6).attr("class", "bad");
+  legend.append("circle").attr("cx",200).attr("cy",60).attr("r", 6);
+  legend.append("text").attr("x", 220).attr("y", 0).text("Healthy Hive").style("font-size", "15px").attr("alignment-baseline","middle");
+  legend.append("text").attr("x", 220).attr("y", 30).text("Unhealthy Hive").style("font-size", "15px").attr("alignment-baseline","middle");
+  legend.append("text").attr("x", 220).attr("y", 60).text("No Data").style("font-size", "15px").attr("alignment-baseline","middle");
 
+  // Calls the drawMap function after reading the map data
   d3.json("data/us.json", function(us) {
 	d3.csv("data/ids_cities_with_coords.csv", function(cities) {
 		drawMap(us, cities);
@@ -71,6 +72,7 @@
 	
 	var isMouseOver = false;
 
+	// Add the points to the map
   	var circles = svg
 	    .selectAll("circle")
 	    .data(cities)
@@ -86,20 +88,21 @@
 	      return projection([d.Longitude, d.Latitude])[1];
 	    })
 	    .attr("r", 4)
+
+	    // Add interactive elements to the points
 	    .on('mouseover', function(d, i, elements) {
 		  isMouseOver = true;
 	      addTooltip(elements[i])
 		})
 
 		.on('mousedown', function(d, i, elements) {
-			
 			var oldSelection = d3.selectAll(".selected")
 			oldSelection.classed("selected", false)
 			removeTooltip(oldSelection)
 			update(d["Hive ID"],  d['Health'], d["City"])
 			d3.select(elements[i]).classed('selected', true)
-
 		})
+		
 	    .on('mouseout', function(d, i, elements) {
 		  isMouseOver = false;
 		  if(!d3.select(elements[i]).classed("selected")) {

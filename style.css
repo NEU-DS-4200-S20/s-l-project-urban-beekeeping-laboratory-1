@@ -75,14 +75,14 @@ rect {
 }
 
 .good {
-	fill: #05a643
+	fill: #05a643;
 }
 
 .bad {
-	fill: red
+	fill: red;
 }
 .noPlant {
-	fill: black
+	fill: #575a5e;
 }
 
 #state-borders {
