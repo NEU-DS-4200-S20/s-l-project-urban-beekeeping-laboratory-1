@@ -60,17 +60,4 @@ Instead of all working directly out of the main `master` branch, you can try ado
 
 ![Image of Git branching model by VIncent Driessen](http://www.ccs.neu.edu/home/cody/courses/shared/git-model.png)
 
-## Grading
-
-Make sure to check these aspects of your work, which are important for every submission:
-
-* Coding was done properly:
-    * Your code was regularly committed and not edited via the GitHub user interface online.
-    * You have clear, commented, and validated code.
-    * Your web page loads properly and looks as expected in the latest Firefox and Chrome browsers.
-    * Any code from other sources (modified or copied straight) is acknowledged.
-
-* Your visualization works as required:
-    * Styles are consistent across views.
-    * None of the visualizations change size or move on the screen as you interact with them.
     
