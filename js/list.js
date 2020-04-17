@@ -32,6 +32,7 @@ function chart(data) {
     .append('td')
         .text(function (d) { return d.value })
 
+    // Add interactivity
     rows.on("mousedown", (d, i, elements) => {
         d3.select("tr.selected").classed("selected", false)
         d3.select(elements[i]).classed("selected", true)
