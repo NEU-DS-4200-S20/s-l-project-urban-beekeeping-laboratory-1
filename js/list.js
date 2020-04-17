@@ -4,11 +4,11 @@
 //Renders the table of Hive data
 function chart(data) {
 
-    var columns = Object.keys(data[0])
+    let columns = Object.keys(data[0])
 
-    var table = d3.select('#vertical-menu').append('table')
-    var thead = table.append('thead')
-    var tbody = table.append('tbody')
+    let table = d3.select('#vertical-menu').append('table')
+    let thead = table.append('thead')
+    let tbody = table.append('tbody')
 
     thead.append('tr')
         .selectAll('th')
@@ -17,12 +17,12 @@ function chart(data) {
         .append('th')
         .text(function (d) { return d })
 
-    var rows = tbody.selectAll('tr')
+    let rows = tbody.selectAll('tr')
         .data(data)
         .enter()
         .append('tr')
 
-    var cells = rows.selectAll('td')
+    let cells = rows.selectAll('td')
         .data(function(row) {
             return columns.map(function (column) {
                 return { column: column, value: row[column] }
@@ -54,7 +54,7 @@ d3.csv("data/ids_cities_health.csv", function(data) {
 
 //Marks the corresponing points on the map with a given class and marking function
 function highlightMap(hives, pointClass, pointFunction) {
-    var circles = d3.selectAll("circle.cities")
+    let circles = d3.selectAll("circle.cities")
     clearMarks(d3.selectAll(`circle.${pointClass}`), pointClass)
     circles.each((d, i, elements) => {
         if(hives.includes(d['Hive ID'])) {
@@ -64,7 +64,7 @@ function highlightMap(hives, pointClass, pointFunction) {
 }
 
 function containsPlantHighlightMap(hives, pointClass, pointFunction) {
-    var circles = d3.selectAll("circle.cities")
+    let circles = d3.selectAll("circle.cities")
     clearMarks(d3.selectAll(`circle.${pointClass}`), pointClass)
     circles.each((d, i, elements) => {
         if(!hives.includes(d['Hive ID'])) {
@@ -75,7 +75,7 @@ function containsPlantHighlightMap(hives, pointClass, pointFunction) {
 
 //Grows a selected point and assigns the given class to a point 
 function markPoint (element, pointClass) {
-    var currentElement = d3.select(element).raise();
+    let currentElement = d3.select(element).raise();
     currentElement
         .classed(pointClass, true)
         .transition()
@@ -85,7 +85,7 @@ function markPoint (element, pointClass) {
 
 //Assigns a class to a point
 function hidePoint (element, pointClass) {
-    var currentElement = d3.select(element);
+    let currentElement = d3.select(element);
     currentElement.classed(pointClass, true)
 }
 
@@ -107,7 +107,7 @@ function listContainsPlant(hiveList) {
     containsPlantHighlightMap(hiveList, "noPlant", hidePoint)
     d3.selectAll('circle:not(.noPlant)').raise()
     d3.selectAll(".selected").raise()
-    var row = d3.selectAll('tr')
+    let row = d3.selectAll('tr')
     .each((d, i, elements) => {
         if(d == null || hiveList == null) {
             return

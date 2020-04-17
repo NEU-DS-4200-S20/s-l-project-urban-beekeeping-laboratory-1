@@ -1,19 +1,19 @@
 // This is the javascript for the barcharts
-var margin = 90,
+let margin = 90,
     width = 950-margin*2,
     height = 450-margin*2;
 
-var x = d3.scaleBand().rangeRound([0, width], .05);
+let x = d3.scaleBand().rangeRound([0, width], .05);
 
-var y = d3.scaleLinear().range([height, 0]);
+let y = d3.scaleLinear().range([height, 0]);
 
-var xAxis = d3.axisBottom(x);
+let xAxis = d3.axisBottom(x);
 
-var yAxis = d3.axisLeft(y).ticks(10);
+let yAxis = d3.axisLeft(y).ticks(10);
 
-var barpadding = 8;
+let barpadding = 8;
 
-var svg = d3.select("#chart-container")
+let svg = d3.select("#chart-container")
     .append("svg")
     .attr("width", width + 2 * margin)
     .attr("height", height + 2 * margin)
@@ -23,11 +23,11 @@ var svg = d3.select("#chart-container")
 
 // Draw the graph    
 function render(csv, health, city){
-    var tooltip = d3.select("#chart-container").append("div")	
+    let tooltip = d3.select("#chart-container").append("div")	
         .attr("class", "tooltip")				
         .style("opacity", 0);
 
-    var csvPath = "data/hive\ plant\ species\ data/"+csv+".csv"
+    let csvPath = "data/hive\ plant\ species\ data/"+csv+".csv"
     d3.csv(csvPath, function(err, data) {
     
       x.domain(data.map(function(d) { return d[data.columns[1]]; }));
@@ -107,7 +107,7 @@ function render(csv, health, city){
 //Function to format labels for barchart
 function wrap(text, width) {
     text.each(function() {
-      var text = d3.select(this),
+      let text = d3.select(this),
           words = text.text().split(/\s+/).reverse(),
           word,
           line = [],

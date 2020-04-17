@@ -2,26 +2,26 @@
 // variables and prevent 
 ((() => {
 
-  var width = 1250;
-  var height = 700;
+  let width = 1250;
+  let height = 700;
 
   //SVG for the map
-  var svg = d3
+  let svg = d3
 	.select("#map-container")
 	.append("svg")
 	.attr("width", width)
 	.attr("height", height);
 
   //USA map projections
-  var projection = d3
+  let projection = d3
 	.geoAlbersUsa()
 	.translate([width / 2, height / 2])
 	.scale(width);
   
-  var path = d3.geoPath().projection(projection);
+  let path = d3.geoPath().projection(projection);
 
   // Add a g element to the map svg
-  var legend = svg
+  let legend = svg
   	.append("g")
   	.attr("class", "map-legend")
   	.attr("transform", "translate(850,275)");
@@ -43,12 +43,12 @@
 
   //Renders the map
   function drawMap(us, cities) {
-	var tooltip = d3.select("div.vis-holder").append("div")	
+	let tooltip = d3.select("div.vis-holder").append("div")	
 	.attr("class", "tooltip")
 	.attr("id", "tooltipMap")				
 	.style("opacity", 0);
 
-	var mapGroup = svg.append("g").attr("class", "mapGroup");
+	let mapGroup = svg.append("g").attr("class", "mapGroup");
 
 	mapGroup
 	  .append("g")
@@ -70,10 +70,10 @@
 	  .attr("d", path);
 
 	
-	var isMouseOver = false;
+	let isMouseOver = false;
 
 	// Add the points to the map
-  	var circles = svg
+  	let circles = svg
 	    .selectAll("circle")
 	    .data(cities)
 	    .enter()
@@ -96,7 +96,7 @@
 		})
 
 		.on('mousedown', function(d, i, elements) {
-			var oldSelection = d3.selectAll(".selected")
+			let oldSelection = d3.selectAll(".selected")
 			oldSelection.classed("selected", false)
 			removeTooltip(oldSelection)
 			update(d["Hive ID"],  d['Health'], d["City"])
@@ -112,7 +112,7 @@
 		
 		//Renders the tooltip and highlights point on map
 		function addTooltip (element) {
-		  var currentElement = d3.select(element);
+		  let currentElement = d3.select(element);
 		  currentElement
 		    .raise()
 	        .transition()
